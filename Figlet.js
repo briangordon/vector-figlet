@@ -54,7 +54,7 @@ function Figlet (fontSize, fontName) {
 
 		function renderLetter(letter) {
 
-			var character = _font[letter];
+			var character = _font[letter] || _font["?"];
 			var longestRow = 0;
 
 			for(var row=0; row<height; row++) {
