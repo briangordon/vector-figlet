@@ -1,6 +1,8 @@
 vector-figlet
 ===============
 
+Prints an ascii-art bitmap of whatever text you enter. It scales to arbitrary size.
+
 Usage nodes
 -----------
 
@@ -50,7 +52,7 @@ You can place any of these modifiers before any symbol to get the listed effect:
 
 - `^` shift the next symbol up (useful for superimposing symbols)
 - `M` shift the next symbol up by a single pixel, independent of font size
-- `v` shift the next synbol down by a single pixel, independent of font size
-- `W` shift the next symbol down (useful for superimposing symbols)
+- `v` shift the next symbol down (useful for superimposing symbols)
+- `W` shift the next synbol down by a single pixel, independent of font size
 - `$(4)` only draw the next symbol if the font size is 4 or less. Otherwise draw a space (if the next symbol IS a space, then collapse that space).
 - `%(10)` only draw the next symbol if the font size is more than 10. Otherwise draw a space (if the next symbol IS a space, then collapse that space).
