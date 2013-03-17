@@ -1,0 +1,16 @@
+.mono {
+	font-family: monospace;
+	white-space: pre;
+}
+
+.container > div {
+	margin-bottom:0.5em;
+}
+
+.container {
+	float: left;
+	clear: both;
+	background-color: #ee8888;
+	margin: 1em 3em 1em 3em;
+	padding: 1em;
+}

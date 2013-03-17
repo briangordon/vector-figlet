@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scalable figlet test</title>
+		<link rel="stylesheet" type="text/css" href="font-test.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="Figlet.js"></script>
+		<script src="fonts/standard.js"></script>
+		<script>
+		"use strict";
+			$(document).ready(function () {
+				var figlet = new Figlet();
+
+				$("#size1a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size1b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+				$("#size2a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",2));
+				$("#size2b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",2));
+				$("#size3a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",3));
+				$("#size3b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",3));
+				$("#size4a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",4));
+				$("#size4b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",4));
+				$("#size5a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",5));
+				$("#size5b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",5));
+				$("#size6a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",6));
+				$("#size6b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",6));
+				$("#size7a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",7));
+				$("#size7b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",7));
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div>Size 1</div>
+			<div id="size1a" class="mono"></div>
+			<div id="size1b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 2</div>
+			<div id="size2a" class="mono"></div>
+			<div id="size2b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 3</div>
+			<div id="size3a" class="mono"></div>
+			<div id="size3b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 4</div>
+			<div id="size4a" class="mono"></div>
+			<div id="size4b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 5</div>
+			<div id="size5a" class="mono"></div>
+			<div id="size5b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 6</div>
+			<div id="size6a" class="mono"></div>
+			<div id="size6b" class="mono"></div>
+		</div>
+
+		<div class="container">
+			<div>Size 7</div>
+			<div id="size7a" class="mono"></div>
+			<div id="size7b" class="mono"></div>
+		</div>
+	</body>
+</html>
