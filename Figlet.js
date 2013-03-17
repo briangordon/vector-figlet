@@ -1,46 +1,49 @@
-function Figlet () {
+// fontSize: the scaling factor for making the text larger or smaller. Must be a natural number.
+// fontName: the font we want to use to render the text. Font js files must be included before Figlet.js
+function Figlet (fontSize, fontName) {
 	"use strict";
 
 	var _this = this;
+	var _font, _scale;
 
-	// text: the text to turn into ascii art
-	// scale: the scaling factor for making the text larger or smaller. Must be a natural number.
-	// font: the font we want to use to render the text. Font js files must be included before Figlet.js
-	_this.render = function (text, scale, font) {
+	// Constructor
+	void function () {
 		// Default font is "standard"
-		font = font || "standard";
+		fontName = fontName || "standard";
 
-		// Default size is 1
-		scale = scale || 1;
-
-		if(scale < 1 || scale !== Math.floor(scale)) {
-			throw "The scaling factor must be a natural number";
-		}
-
-		var font;
-		if(!figlet_fonts || !(font = figlet_fonts[font])) {
+		if(!figlet_fonts || !(_font = figlet_fonts[fontName])) {
 			throw "Missing font";
 		}
 
+		// Default size is 1
+		_scale = fontSize || 1;
+
+		if(_scale < 1 || _scale !== Math.floor(_scale)) {
+			throw "The scaling factor must be a natural number";
+		}
+	}();
+
+	// text: the text to turn into ascii art
+	_this.render = function (text) {
 		// Make sure that every letter has the same height
 		var height = 0;
-		for(var letter in font) {
+		for(var letter in _font) {
 			if(height === 0) {
-				height = font[letter].length;
+				height = _font[letter].length;
 				continue;
 			}
 
-			if(font[letter].length !== height) {
-				throw ("Every letter must have the same height (" + letter + " has a height of " + font[letter].length + ")");
+			if(_font[letter].length !== height) {
+				throw ("Every letter must have the same height (" + letter + " has a height of " + _font[letter].length + ")");
 			}
 		}
 
 		var buffer = [];
-		for(var i=0; i<scale*height+(2*(scale-1)); i++) {
+		for(var i=0; i<_scale*height+(2*(_scale-1)); i++) {
 			buffer[i] = [];
 		}
 
-		var currentWidth = scale-1;
+		var currentWidth = _scale-1;
 
 		var letters = text.split("");
 		for(var idx = 0; idx < letters.length; idx++) {
@@ -51,7 +54,7 @@ function Figlet () {
 
 		function renderLetter(letter) {
 
-			var character = font[letter];
+			var character = _font[letter];
 			var longestRow = 0;
 
 			for(var row=0; row<height; row++) {
@@ -86,12 +89,12 @@ function Figlet () {
 
 					// Subscript modifier
 					if(curCell === "v") {
-						offset = scale;
+						offset = _scale;
 						handleModifier();
 
 					// Superscript modifier
 					} else if(curCell === "^") {
-						offset = -scale;
+						offset = -_scale;
 						handleModifier();
 
 					// One pixel subscript modifier
@@ -109,7 +112,7 @@ function Figlet () {
 						handleModifier();
 						if(curCell === "(") {
 							var targetScale = handleArgumentativeModifier();
-							if(scale > targetScale) {
+							if(_scale > targetScale) {
 								// If the target symbol is a space, then we shouldn't just move over like normal. We should collapse the space.
 								if(curCell === " ") {
 									realCol--;
@@ -123,7 +126,7 @@ function Figlet () {
 						handleModifier();
 						if(curCell === "(") {
 							var targetScale = handleArgumentativeModifier();
-							if(scale <= targetScale) {
+							if(_scale <= targetScale) {
 								// If the target symbol is a space, then we shouldn't just move over like normal. We should collapse the space.
 								if(curCell === " ") {
 									realCol--;
@@ -135,80 +138,80 @@ function Figlet () {
 
 					// Only mark the cell itself
 					if(curCell === "+") {
-						buffer[(scale*row)+(scale-1)+offset][(scale*realCol)+currentWidth] = true;
+						buffer[(_scale*row)+(_scale-1)+offset][(_scale*realCol)+currentWidth] = true;
 					}
 
 					// Mark the cells to the left and right
 					else if(curCell === "-") {
-						for(var k=-scale+1; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the cells to the left and right (minus one)
 					else if(curCell === "~") {
-						var shrunkScale = (scale > 2) ? scale-1 : scale;
+						var shrunkScale = (_scale > 2) ? _scale-1 : _scale;
 						for(var k=-shrunkScale+1; k<=shrunkScale-1; k++) {
-							buffer[(scale*row)+(scale-1)+offset][(scale*realCol)+currentWidth+k] = true;
+							buffer[(_scale*row)+(_scale-1)+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the cells above and below
 					else if(curCell === "|") {
-						for(var k=-scale+1; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth] = true;
+						for(var k=-_scale+1; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth] = true;
 						}
 					}
 
 					// Mark the cells above and below (minus one)
 					else if(curCell === "!") {
-						var shrunkScale = (scale > 2) ? scale-1 : scale;
+						var shrunkScale = (_scale > 2) ? _scale-1 : _scale;
 						for(var k=-shrunkScale+1; k<=shrunkScale-1; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth] = true;
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth] = true;
 						}
 					}
 
 					// Only mark below
 					else if(curCell === ",") {
-						for(var k=0; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth] = true;
+						for(var k=0; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth] = true;
 						}
 					}
 
 					// Only mark above
 					else if(curCell === "'") {
-						for(var k=-scale+1; k<=0; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth] = true;
+						for(var k=-_scale+1; k<=0; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth] = true;
 						}
 					}
 
 					// Only mark to the left
 					else if(curCell === "<") {
-						for(var k=-scale+1; k<=0; k++) {
-							buffer[(scale*row)+(scale-1)+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=0; k++) {
+							buffer[(_scale*row)+(_scale-1)+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Only mark to the right
 					else if(curCell === ">") {
-						for(var k=0; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=0; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the cells all around
 					else if(curCell === "@") {
-						for(var k=-scale+1; k<=scale-1; k++) {
-							for(var l=-scale+1; l<=scale-1; l++) {
-								buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth+l] = true;
+						for(var k=-_scale+1; k<=_scale-1; k++) {
+							for(var l=-_scale+1; l<=_scale-1; l++) {
+								buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth+l] = true;
 							}
 						}
 					}
 
 					// Mark the cells all around (minus one)
 					else if(curCell === "O") {
-						var shrunkScale = (scale > 2) ? scale-1 : scale;
-						for(var k=-scale+1; k<=scale-1; k++) {
+						var shrunkScale = (_scale > 2) ? _scale-1 : _scale;
+						for(var k=-shrunkScale+1; k<=shrunkScale-1; k++) {
 							for(var l=-scale+1; l<=scale-1; l++) {
 								buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth+l] = true;
 							}
@@ -217,60 +220,59 @@ function Figlet () {
 
 					// Mark the cells along a y=x diagonal
 					else if(curCell === "/") {
-						for(var k=-scale+1; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)-k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)-k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the cells along a y=-x diagonal
 					else if(curCell === "\\") {
-						for(var k=-scale+1; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the lower-left cells along a y=x diagonal
 					else if(curCell === "1") {
-						for(var k=-scale+1; k<=0; k++) {
-							buffer[(scale*row)+(scale-1)-k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=0; k++) {
+							buffer[(_scale*row)+(_scale-1)-k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the upper-left cells along a y=-x diagonal
 					else if(curCell === "7") {
-						for(var k=-scale+1; k<=0; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=-_scale+1; k<=0; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the lower-right cells along a y=x diagonal
 					else if(curCell === "3") {
-						for(var k=0; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)+k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=0; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)+k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 
 					// Mark the upper-right cells along a y=-x diagonal
 					else if(curCell === "9") {
-						for(var k=0; k<=scale-1; k++) {
-							buffer[(scale*row)+(scale-1)-k+offset][(scale*realCol)+currentWidth+k] = true;
+						for(var k=0; k<=_scale-1; k++) {
+							buffer[(_scale*row)+(_scale-1)-k+offset][(_scale*realCol)+currentWidth+k] = true;
 						}
 					}
 				}
 			}
 
-			currentWidth += longestRow*scale + 1;
+			currentWidth += longestRow*_scale + 1;
 		}
 	}
 
-	_this.renderToHtml = function (text, scale, font) {
-		return _this.renderToText(text, scale, font, "<br />");
+	_this.renderToHtml = function (text) {
+		return _this.renderToText(text, "<br />");
 	}
 
-	_this.renderToText = function (text, scale, font, newline) {
+	_this.renderToText = function (text, newline) {
+		var grid = _this.render(text);
 		newline = newline || "\n";
-
-		var grid = _this.render(text, scale, font);
 
 		var ret = "";
 		for(var row=0; row<grid.length; row++) {

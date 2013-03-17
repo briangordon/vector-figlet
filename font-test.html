@@ -9,22 +9,33 @@
 		<script>
 		"use strict";
 			$(document).ready(function () {
-				var figlet = new Figlet();
-
+				var figlet = new Figlet(1);
 				$("#size1a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
 				$("#size1b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
-				$("#size2a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",2));
-				$("#size2b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",2));
-				$("#size3a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",3));
-				$("#size3b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",3));
-				$("#size4a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",4));
-				$("#size4b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",4));
-				$("#size5a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",5));
-				$("#size5b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",5));
-				$("#size6a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",6));
-				$("#size6b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",6));
-				$("#size7a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog",7));
-				$("#size7b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",7));
+
+				figlet = new Figlet(2);
+				$("#size2a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size2b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+
+				figlet = new Figlet(3);
+				$("#size3a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size3b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+
+				figlet = new Figlet(4);
+				$("#size4a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size4b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+
+				figlet = new Figlet(5);
+				$("#size5a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size5b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+
+				figlet = new Figlet(6);
+				$("#size6a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size6b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
+
+				figlet = new Figlet(7);
+				$("#size7a").text(figlet.renderToText("the quick brown fox jumps over the lazy dog"));
+				$("#size7b").text(figlet.renderToText("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
 			});
 		</script>
 	</head>

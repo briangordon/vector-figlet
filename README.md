@@ -21,8 +21,8 @@ And any font files that you want to use:
 Now you can use it:
 
 ```javascript
-var fig = new Figlet();
-var result = fig.render("Hello", 2, 100);
+var fig = new Figlet(2, "standard");
+var result = fig.render("Hello");
 ```
 
 Making your own fonts
