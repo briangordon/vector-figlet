@@ -1,7 +1,7 @@
 vector-figlet
 ===============
 
-Prints an ascii-art bitmap of whatever text you enter. It scales to arbitrary size.
+Prints an ascii-art bitmap of whatever text you enter. The characters scale to arbitrary size without the brush strokes becoming thicker.
 
 Usage nodes
 -----------
